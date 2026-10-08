@@ -142,3 +142,13 @@ def orders(user=Depends(current_user)):
 FRONTEND_DIST = ROOT.parent / "frontend" / "dist"
 if FRONTEND_DIST.exists():
     app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "8000"))
+    print(f"Sever Store запущен: http://{host}:{port}")
+    print(f"Документация API: http://{host}:{port}/docs")
+    uvicorn.run(app, host=host, port=port)
